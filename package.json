@@ -1,0 +1,14 @@
+{
+  "name": "store-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint",
+    "db:generate": "npm --prefix back-end run db:generate",
+    "db:migrate": "npm --prefix back-end run db:migrate:local",
+    "db:seed": "npm --prefix back-end run db:seed",
+    "db:seed-auth": "npm --prefix back-end run db:seed-auth",
+    "db:seed-catalog": "npm --prefix back-end run db:seed-catalog"
+  }
+}

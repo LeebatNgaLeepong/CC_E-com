@@ -1,0 +1,30 @@
+{
+  "name": "store-back-end",
+  "private": true,
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "db:seed": "tsx src/db/seed-catalog.ts",
+    "db:seed-auth": "tsx --env-file=.env src/db/seed-auth.ts",
+    "db:seed-catalog": "tsx src/db/seed-catalog.ts",
+    "db:studio": "drizzle-kit studio",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.18",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.10",
+    "drizzle-orm": "^0.45.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.19.43",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.167.0"
+  }
+}
