@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import OrderSummary from "@/components/cart/OrderSummary";
 import { getCart, MAX_QTY } from "@/lib/cart";
 import { formatPeso } from "@/lib/format";
-import { toneBg } from "@/lib/tones";
+import ProductImage from "@/components/ProductImage";
 import { updateQty } from "./actions";
 
 export const metadata = { title: "Your bag" };
@@ -21,7 +21,7 @@ export default async function CartPage() {
         {cart.items.length === 0 ? (
           <div className="mt-12">
             <p className="text-ink-soft">Your bag is empty.</p>
-            <Link href="/shop" className="mt-6 inline-flex min-h-12 items-center rounded-full bg-btn px-8 font-semibold text-on-btn hover:bg-btn-hover">
+            <Link href="/shop" className="btn-primary mt-6 inline-flex min-h-12 items-center rounded-full px-8 font-semibold">
               Continue shopping
             </Link>
           </div>
@@ -32,7 +32,14 @@ export default async function CartPage() {
                 const maxQty = Math.min(item.stock, MAX_QTY);
                 return (
                   <li key={item.variantId} className="flex gap-5 p-5">
-                    <div className={`h-28 w-24 shrink-0 rounded-control ${toneBg[item.tone]}`} aria-hidden />
+                    <ProductImage
+                      src={item.image?.url}
+                      alt={item.image?.alt ?? item.name}
+                      tone={item.tone}
+                      sizes="96px"
+                      className="h-28 w-24 shrink-0"
+                      rounded="rounded-control"
+                    />
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex justify-between gap-4">
                         <div>
@@ -71,7 +78,7 @@ export default async function CartPage() {
               {cart.hasIssues ? (
                 <p className="mt-6 text-sm text-red-700 dark:text-red-300">Update your bag to continue.</p>
               ) : (
-                <Link href="/checkout" className="mt-6 flex min-h-14 items-center justify-center rounded-full bg-btn text-lg font-semibold text-on-btn hover:bg-btn-hover">
+                <Link href="/checkout" className="btn-primary mt-6 flex min-h-14 items-center justify-center rounded-full text-lg font-semibold">
                   Check out
                 </Link>
               )}

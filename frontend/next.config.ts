@@ -7,6 +7,7 @@ dotenv.config({ path: ["../back-end/.env.local", "../back-end/.env"] });
 
 const nextConfig: NextConfig = {
   /* config options here */
+  devIndicators: false,
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

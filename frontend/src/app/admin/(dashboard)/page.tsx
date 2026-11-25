@@ -67,7 +67,7 @@ async function AdminContent() {
                     </button>
                   </form>
                   <form action={setSellerStatus.bind(null, application.id, "active")}>
-                    <button className="min-h-11 rounded-full bg-btn px-5 text-sm font-semibold text-on-btn hover:bg-btn-hover">
+                    <button className="btn-primary min-h-11 rounded-full px-5 text-sm font-semibold">
                       Approve
                     </button>
                   </form>

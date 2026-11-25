@@ -2,6 +2,7 @@ import "server-only";
 import { and, asc, desc, eq, min, sql, type SQL } from "drizzle-orm";
 import { getDb } from "../../../back-end/src/db";
 import { collections, products, variants } from "../../../back-end/src/db/schema";
+import { getImagesByProduct, pickImage } from "@/lib/images";
 
 export const SIZE_ORDER = ["XS", "S", "M", "L", "XL"];
 
@@ -51,11 +52,13 @@ export async function listProducts(filters: Filters = {}) {
     .groupBy(products.id)
     .orderBy(order);
 
+  const images = await getImagesByProduct(rows.map((row) => row.id));
   return rows.map((row) => ({
     ...row,
     minPrice: row.minPrice ?? 0,
-    colors: row.colors?.split(",") ?? [],
+    colors: row.colors?.split(",").sort() ?? [],
     inStock: row.inStock > 0,
+    image: pickImage(images.get(row.id), filters.color),
   }));
 }
 
@@ -74,7 +77,8 @@ export async function getProduct(slug: string) {
     return index < 0 ? 99 : index;
   };
   list.sort((a, b) => a.color.localeCompare(b.color) || rank(a.size) - rank(b.size));
-  return { ...product, variants: list };
+  const images = (await getImagesByProduct([product.id])).get(product.id) ?? [];
+  return { ...product, variants: list, images };
 }
 
 export async function getFacets() {

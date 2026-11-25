@@ -18,6 +18,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       nav={[
         { href: "/admin", label: "Overview" },
         { href: "/admin/orders", label: "Orders" },
+        { href: "/admin/support", label: "Support" },
         { href: "/", label: "View store" },
       ]}
       signOutTo="/admin/login"

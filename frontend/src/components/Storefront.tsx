@@ -3,6 +3,8 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import Header from "@/components/Header";
 import RewardsButton from "@/components/RewardsButton";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 
 type StoreProduct = {
   id: string;
@@ -13,6 +15,7 @@ type StoreProduct = {
   minPrice: number;
   colors: string[];
   inStock: boolean;
+  image: { url: string; alt: string } | null;
 };
 
 export default function Storefront({
@@ -24,18 +27,7 @@ export default function Storefront({
     <main className="store-shell">
       <Header />
 
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="hero-art" aria-hidden="true">
-          <div className="look-card look-pink"><div className="look-garment"><span className="look-sleeve left" /><span className="look-body" /><span className="look-sleeve right" /></div></div>
-          <div className="look-card look-sage"><div className="look-garment"><span className="look-sleeve left" /><span className="look-body" /><span className="look-sleeve right" /></div></div>
-          <div className="look-card look-mist"><div className="look-garment"><span className="look-sleeve left" /><span className="look-body" /><span className="look-sleeve right" /></div></div>
-        </div>
-        <div className="hero-copy">
-          <p className="eyebrow">A quieter kind of everyday</p>
-          <h1 id="hero-heading">Made for the life<br />you live.</h1>
-          <a className="primary-button" href="#shop">Shop the collection <ArrowRight size={17} /></a>
-        </div>
-      </section>
+      <Hero />
 
       <section className="product-section" id="shop">
         <div className="section-heading">
@@ -52,12 +44,14 @@ export default function Storefront({
               subline={`${product.colors[0] ?? ""}${product.fit ? ` / ${product.fit}` : ""}`}
               tone={product.tone}
               soldOut={!product.inStock}
+              image={product.image}
             />
           ))}
         </div>
       </section>
 
       <RewardsButton />
+      <Footer />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { io } from "next/cache";
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
 import RewardsButton from "@/components/RewardsButton";
+import Footer from "@/components/Footer";
 import FilterBar from "@/components/shop/FilterBar";
 import { getFacets, listProducts, type Filters } from "@/lib/catalog";
 
@@ -56,7 +57,7 @@ async function ShopContent({
             placeholder="Search pieces, colors, collections"
             className="min-h-12 min-w-0 flex-1 rounded-full border border-line bg-card px-5"
           />
-          <button className="min-h-12 rounded-full bg-btn px-6 font-semibold text-on-btn hover:bg-btn-hover">Search</button>
+          <button className="btn-primary min-h-12 rounded-full px-6 font-semibold">Search</button>
         </form>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[260px_1fr]">
@@ -82,6 +83,7 @@ async function ShopContent({
                     subline={`${product.colors[0] ?? ""}${product.fit ? ` / ${product.fit}` : ""}`}
                     tone={product.tone}
                     soldOut={!product.inStock}
+                    image={product.image}
                   />
                 ))}
               </div>
@@ -90,6 +92,7 @@ async function ShopContent({
         </div>
       </main>
       <RewardsButton />
+      <Footer />
     </>
   );
 }

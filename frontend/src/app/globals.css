@@ -73,7 +73,6 @@
   --portal-top: #2a1a20;
 }
 
-* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
@@ -84,8 +83,18 @@ body {
 }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
-a { color: inherit; text-decoration: none; }
+@layer base {
+  a { color: inherit; text-decoration: none; }
+}
 :focus-visible { outline: 3px solid var(--color-ink); outline-offset: 2px; }
+
+.btn-primary {
+  background: var(--color-btn);
+  color: var(--color-on-btn);
+  transition: background-color 0.2s;
+}
+.btn-primary:hover { background: var(--color-btn-hover); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .store-shell { min-height: 100vh; }
 .announcement {
@@ -149,7 +158,6 @@ a { color: inherit; text-decoration: none; }
   gap: 18px;
   padding: 220px max(24px, calc((100vw - 1180px)/2)) 0;
   background:
-    radial-gradient(circle at 18% 22%, rgba(255,255,255,.72) 0 12%, transparent 12.4%),
     linear-gradient(135deg, rgba(233,159,179,.34), var(--mist) 48%, rgba(121,159,118,.24));
 }
 .look-card {
@@ -366,6 +374,16 @@ a { color: inherit; text-decoration: none; }
    radial-gradient(50% 50% at 90% 70%, rgba(134, 169, 132, 0.22), transparent 70%),
    linear-gradient(180deg, #1a1114 0%, #0e0e10 100%);
 }
+:root[data-theme="dark"] .hero-art {
+  background:
+    radial-gradient(45% 45% at 15% 15%, rgba(212, 120, 154, 0.16), transparent 70%),
+    radial-gradient(40% 50% at 85% 70%, rgba(134, 169, 132, 0.14), transparent 70%),
+    linear-gradient(135deg, #24171d 0%, #161216 48%, #171d17 100%);
+}
+:root[data-theme="dark"] .look-pink { background: linear-gradient(155deg, #7d4057, #4a2a35); }
+:root[data-theme="dark"] .look-sage { background: linear-gradient(155deg, #526852, #354936); }
+:root[data-theme="dark"] .look-mist { background: linear-gradient(155deg, #34343b, #232329); }
+:root[data-theme="dark"] .hero h1 { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45); }
 .portal-bg {
  background: linear-gradient(180deg, var(--portal-top) 0%, var(--color-surface) 320px);
 }
@@ -416,6 +434,10 @@ a { color: inherit; text-decoration: none; }
 }
 .arch-sleeve-left { left: 0; transform: rotate(18deg); }
 .arch-sleeve-right { right: 0; transform: rotate(-18deg) scaleX(-1); }
+.arch-rose .arch-body,
+.arch-rose .arch-sleeve { background: linear-gradient(180deg, #f4bac8, #d4789a); }
+.arch-sage .arch-body,
+.arch-sage .arch-sleeve { background: linear-gradient(180deg, #b6c9b3, #86a984); }
  :root[data-theme="dark"] .arch-body,
  :root[data-theme="dark"] .arch-sleeve {
   background: linear-gradient(180deg, var(--color-card), var(--color-surface));

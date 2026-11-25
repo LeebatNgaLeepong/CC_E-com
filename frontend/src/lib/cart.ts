@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getDb } from "@/db";
 import { products, variants } from "@/db/schema";
 import { totals } from "@/lib/shipping";
+import { getImagesByProduct, pickImage } from "@/lib/images";
 
 export const MAX_QTY = 10;
 export const MAX_LINES = 20;
@@ -70,12 +71,14 @@ export async function getCart() {
     .where(and(inArray(variants.id, lines.map((line) => line.v)), eq(products.active, true)));
 
   const byId = new Map(rows.map((row) => [row.variantId, row]));
+  const imgs = await getImagesByProduct([...new Set(rows.map((row) => row.productId))]);
   const items = lines.flatMap((line) => {
     const row = byId.get(line.v);
     if (!row) return [];
     const qty = Math.min(line.q, row.stock);
     return [{
       ...row,
+      image: pickImage(imgs.get(row.productId), row.color),
       requested: line.q,
       qty,
       lineCents: row.priceCents * qty,

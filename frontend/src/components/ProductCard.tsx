@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ShoppingBag } from "lucide-react";
 import { formatPeso } from "@/lib/format";
+import ProductImage from "./ProductImage";
 
 const toneColors = {
   rose: "#d37897",
@@ -18,6 +19,7 @@ export default function ProductCard({
   subline,
   tone,
   soldOut = false,
+  image,
 }: {
   slug: string;
   name: string;
@@ -25,12 +27,19 @@ export default function ProductCard({
   subline: string;
   tone: keyof typeof toneColors;
   soldOut?: boolean;
+  image?: { url: string; alt: string } | null;
 }) {
   return (
     <article className="product-card">
       <div className="product-image" style={{ "--product": toneColors[tone] } as CSSProperties}>
         <Link href={`/product/${slug}`} className="absolute inset-0" aria-label={`View ${name}`} />
-        <div className="fabric-shadow" />
+        <ProductImage
+          src={image?.url}
+          alt={image?.alt ?? name}
+          tone={tone}
+          sizes="(min-width: 1280px) 400px, (min-width: 640px) 45vw, 90vw"
+          rounded="rounded-none"
+        />
         {soldOut && (
           <span className="absolute left-4 top-4 rounded-full bg-card/90 px-3 py-1 text-xs font-semibold">
             Sold out

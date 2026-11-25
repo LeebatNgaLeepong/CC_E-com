@@ -37,7 +37,7 @@ export default async function AdminOrdersPage() {
                     </button>
                   </form>
                   <form action={markFulfilled.bind(null, order.id)}>
-                    <button className="min-h-11 rounded-full bg-btn px-5 text-sm font-semibold text-on-btn hover:bg-btn-hover">
+                    <button className="btn-primary min-h-11 rounded-full px-5 text-sm font-semibold">
                       Mark fulfilled
                     </button>
                   </form>

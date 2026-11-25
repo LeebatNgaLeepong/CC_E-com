@@ -1,4 +1,5 @@
-import { collections, products, variants } from "./schema";
+import { eq } from "drizzle-orm";
+import { collections, productImages, products, variants } from "./schema";
 import { scriptDb } from "./script-db";
 
 const sizes = ["XS", "S", "M", "L", "XL"] as const;
@@ -11,64 +12,46 @@ const collectionSeeds = [
 
 const catalog = [
   {
-    slug: "softline-tee",
-    name: "Softline Tee",
-    collection: "essentials",
-    fit: "Essential",
-    tone: "rose",
-    colors: ["Rose", "Cream"],
-    priceCents: 185000,
-    description: "A soft everyday tee in organic cotton jersey.",
+    slug: "softline-tee", name: "Softline Tee", collection: "essentials", fit: "Essential", tone: "rose",
+    colors: ["Rose"], priceCents: 185000,
+    description: "A relaxed short-sleeve tee for everyday wear.",
+    images: [
+      { color: "Rose", file: "softline-tee-rose-1.jpg", alt: "Rose short-sleeve tee, flat lay" },
+      { color: "Rose", file: "softline-tee-rose-2.jpg", alt: "Rose short-sleeve tee, second view" },
+    ],
   },
   {
-    slug: "cloud-set",
-    name: "Cloud Set",
-    collection: "sets",
-    fit: "Relaxed",
-    tone: "blush",
-    colors: ["Blush"],
-    priceCents: 320000,
-    description: "A relaxed two-piece set in brushed cotton.",
+    slug: "cloud-set", name: "Cloud Set", collection: "sets", fit: "Relaxed", tone: "blush",
+    colors: ["Blush", "Sage"], priceCents: 320000,
+    description: "A relaxed two-piece sweatshirt and jogger set.",
+    images: [
+      { color: "Blush", file: "cloud-set-blush.jpg", alt: "Blush sweatshirt and jogger set, flat lay" },
+      { color: "Sage", file: "cloud-set-sage.jpg", alt: "Sage sweatshirt and jogger set, flat lay" },
+    ],
   },
   {
-    slug: "meadow-knit",
-    name: "Meadow Knit",
-    collection: "knitwear",
-    fit: "Lightweight",
-    tone: "sage",
-    colors: ["Sage", "Oat"],
-    priceCents: 278000,
-    description: "A lightweight knit for cool evenings.",
+    slug: "meadow-knit", name: "Meadow Knit", collection: "knitwear", fit: "Lightweight", tone: "sage",
+    colors: ["Sage"], priceCents: 278000,
+    description: "A textured crew-neck knit in a soft sage.",
+    images: [{ color: "Sage", file: "meadow-knit-sage.jpg", alt: "Sage waffle-knit sweater, flat lay" }],
   },
   {
-    slug: "linen-shirt",
-    name: "Linen Shirt",
-    collection: "essentials",
-    fit: "Relaxed",
-    tone: "sage",
-    colors: ["Sage", "Cream"],
-    priceCents: 249000,
-    description: "A breathable linen shirt with a soft collar.",
+    slug: "field-shirt", name: "Field Shirt", collection: "essentials", fit: "Relaxed", tone: "sage",
+    colors: ["Sage"], priceCents: 249000,
+    description: "A button-up shirt with a chest pocket and an easy fit.",
+    images: [{ color: "Sage", file: "linen-shirt-sage.jpg", alt: "Sage button-up shirt with chest pocket, flat lay" }],
   },
   {
-    slug: "everyday-trouser",
-    name: "Everyday Trouser",
-    collection: "essentials",
-    fit: "Straight",
-    tone: "blush",
-    colors: ["Blush", "Oat"],
-    priceCents: 295000,
-    description: "Straight-leg trousers with an easy waist.",
+    slug: "signature-crew", name: "Signature Crew", collection: "essentials", fit: "Relaxed", tone: "blush",
+    colors: ["Black"], priceCents: 295000,
+    description: "A relaxed crew-neck sweatshirt with the wordmark on the chest.",
+    images: [{ color: "Black", file: "signature-crew-black.jpg", alt: "Black crew-neck sweatshirt with wordmark, flat lay" }],
   },
   {
-    slug: "quiet-cardigan",
-    name: "Quiet Cardigan",
-    collection: "knitwear",
-    fit: "Oversized",
-    tone: "rose",
-    colors: ["Rose"],
-    priceCents: 335000,
-    description: "An oversized cardigan in a soft knit.",
+    slug: "quiet-cardigan", name: "Quiet Cardigan", collection: "knitwear", fit: "Oversized", tone: "rose",
+    colors: ["Rose"], priceCents: 335000,
+    description: "An oversized button-front cardigan in a chunky knit.",
+    images: [{ color: "Rose", file: "quiet-cardigan-rose.jpg", alt: "Rose chunky-knit cardigan with buttons, flat lay" }],
   },
 ] as const;
 
@@ -115,6 +98,17 @@ async function seedCatalog() {
         })
         .returning({ id: products.id });
       if (!product) throw new Error(`Could not create or find product "${item.slug}"`);
+
+      await db.delete(productImages).where(eq(productImages.productId, product.id));
+      for (const [position, image] of item.images.entries()) {
+        await db.insert(productImages).values({
+          productId: product.id,
+          color: image.color,
+          url: `/images/products/${image.file}`,
+          alt: image.alt,
+          position,
+        });
+      }
 
       for (const color of item.colors) {
         for (const size of sizes) {

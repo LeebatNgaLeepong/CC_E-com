@@ -58,6 +58,19 @@ export const variants = sqliteTable(
   ],
 );
 
+export const productImages = sqliteTable(
+  "product_images",
+  {
+    id: id(),
+    productId: text("product_id").notNull().references(() => products.id),
+    color: text("color"),
+    url: text("url").notNull(),
+    alt: text("alt").notNull(),
+    position: integer("position").notNull().default(0),
+  },
+  (t) => [index("product_images_product_idx").on(t.productId)],
+);
+
 export const orders = sqliteTable("orders", {
   id: id(),
   code: text("code").notNull().unique().default(""),
@@ -86,4 +99,16 @@ export const orderItems = sqliteTable("order_items", {
   color: text("color").notNull().default(""),
   quantity: integer("quantity").notNull(),
   priceCents: integer("price_cents").notNull(),
+});
+
+export const supportMessages = sqliteTable("support_messages", {
+  id: id(),
+  userId: text("user_id").references(() => users.id),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  topic: text("topic", { enum: ["order", "sizing", "returns", "other"] }).notNull(),
+  orderCode: text("order_code"),
+  message: text("message").notNull(),
+  status: text("status", { enum: ["open", "resolved"] }).notNull().default("open"),
+  createdAt: createdAt(),
 });

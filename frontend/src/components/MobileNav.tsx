@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { LifeBuoy, Menu, X } from "lucide-react";
-import { SUPPORT_EMAIL, SUPPORT_SUBJECT } from "@/lib/site";
 import { ThemeRow } from "./ThemeToggle";
 
 const links = [
@@ -123,13 +122,14 @@ export default function MobileNav() {
           <p className="text-sm text-ink-soft">
             Questions about an order, sizing or a return? We&rsquo;re here to help.
           </p>
-          <a
-            href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(SUPPORT_SUBJECT)}`}
-            className="mt-4 flex min-h-14 items-center justify-center gap-2 rounded-full bg-btn text-lg font-semibold text-on-btn transition hover:bg-btn-hover"
+          <Link
+            href="/support"
+            onClick={close}
+            className="btn-primary mt-4 flex min-h-14 items-center justify-center gap-2 rounded-full text-lg font-semibold"
           >
             <LifeBuoy size={20} aria-hidden />
             Contact support
-          </a>
+          </Link>
         </div>
       </div>
     </div>

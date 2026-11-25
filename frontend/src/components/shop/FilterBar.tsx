@@ -31,7 +31,7 @@ function Chip({
       href={href}
       aria-current={active ? "true" : undefined}
       className={`inline-flex min-h-11 items-center rounded-full px-5 text-sm font-medium transition ${
-        active ? "bg-btn text-on-btn" : "bg-surface hover:bg-ink/10"
+        active ? "btn-primary" : "bg-surface hover:bg-ink/10"
       }`}
     >
       {children}

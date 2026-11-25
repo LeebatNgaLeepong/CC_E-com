@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingBag } from "lucide-react";
+import { Search, ShoppingBag, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import MobileNav from "./MobileNav";
 import ThemeToggle from "./ThemeToggle";
@@ -55,11 +55,28 @@ export default function Header() {
       </header>
       {searchOpen && (
         <div className="overlay" role="dialog" aria-modal="true" aria-label="Search">
-          <form action="/shop" className="search-panel glass-panel">
-            <Search size={20} />
-            <input autoFocus name="q" placeholder="Search pieces, colors, collections" aria-label="Search query" />
-            <button type="submit">Search</button>
-            <button type="button" onClick={() => setSearchOpen(false)}>Close</button>
+          <form action="/shop" className="glass glass-strong flex w-[min(760px,100%)] items-center gap-2 p-2 pl-5">
+            <Search size={20} className="shrink-0 text-ink-soft" aria-hidden />
+            <input
+              autoFocus
+              type="search"
+              name="q"
+              placeholder="Search pieces"
+              aria-label="Search pieces"
+              className="min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink-soft"
+            />
+            <button type="submit" className="btn-primary min-h-11 shrink-0 rounded-full px-5 text-sm font-semibold">
+              Search
+            </button>
+            <button
+              type="button"
+              onClick={() => setSearchOpen(false)}
+              aria-label="Close search"
+              className="flex min-h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink/5 text-sm font-semibold hover:bg-ink/10 md:w-auto md:px-5"
+            >
+              <X size={20} aria-hidden className="md:hidden" />
+              <span className="hidden md:inline">Close</span>
+            </button>
           </form>
         </div>
       )}

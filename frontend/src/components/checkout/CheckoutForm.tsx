@@ -61,7 +61,7 @@ export default function CheckoutForm({
         <p role="alert" aria-live="polite" className="min-h-6 text-sm text-red-700 dark:text-red-300">{state?.error}</p>
         <button
           disabled={pending}
-          className="mt-2 min-h-14 w-full rounded-full bg-btn text-lg font-semibold text-on-btn transition hover:bg-btn-hover disabled:opacity-60"
+          className="btn-primary mt-2 min-h-14 w-full rounded-full text-lg font-semibold"
         >
           {pending ? "Placing order…" : "Place order"}
         </button>

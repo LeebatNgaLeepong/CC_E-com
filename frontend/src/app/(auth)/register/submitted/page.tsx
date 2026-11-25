@@ -12,7 +12,7 @@ export default function SubmittedPage() {
       </p>
       <Link
         href="/login?as=seller"
-        className="mt-8 flex min-h-12 items-center justify-center rounded-full bg-btn font-semibold text-on-btn hover:bg-btn-hover"
+        className="btn-primary mt-8 flex min-h-12 items-center justify-center rounded-full font-semibold"
       >
         Back to sign in
       </Link>

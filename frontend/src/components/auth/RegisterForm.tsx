@@ -22,7 +22,7 @@ export default function RegisterForm({ seller }: { seller: boolean }) {
       </p>
       <button
         disabled={pending}
-        className="min-h-12 w-full rounded-full bg-btn text-base font-semibold text-on-btn transition hover:bg-btn-hover disabled:opacity-60"
+        className="btn-primary min-h-12 w-full rounded-full text-base font-semibold"
       >
         {pending ? "Please wait…" : seller ? "Submit application" : "Create account"}
       </button>

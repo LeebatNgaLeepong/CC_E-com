@@ -21,7 +21,7 @@ export default function LoginForm({
       <Field label="Email" name="email" type="email" autoComplete="email" required tone={tone} />
       <Field label="Password" name="password" type="password" autoComplete="current-password" required tone={tone} />
       <p role="alert" aria-live="polite" className={`min-h-5 text-sm ${dark ? "text-red-300" : "text-red-700"}`}>{error}</p>
-      <button disabled={pending} className={`min-h-12 w-full rounded-full text-base font-semibold transition disabled:opacity-60 ${dark ? "bg-white text-[#1d1d1f] hover:bg-white/90" : "bg-btn text-on-btn hover:bg-btn-hover"}`}>
+      <button disabled={pending}       className={`min-h-12 w-full rounded-full text-base font-semibold transition disabled:opacity-60 ${dark ? "bg-white text-[#1d1d1f] hover:bg-white/90" : "btn-primary"}`}>
         {pending ? "Signing in…" : "Sign in"}
       </button>
     </form>

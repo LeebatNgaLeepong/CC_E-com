@@ -65,7 +65,7 @@ export default async function OrderPage({
           <p className="text-ink-soft">{order.shippingAddress}</p>
         </div>
 
-        <Link href="/shop" className="mt-10 inline-flex min-h-12 items-center rounded-full bg-btn px-8 font-semibold text-on-btn hover:bg-btn-hover">
+        <Link href="/shop" className="btn-primary mt-10 inline-flex min-h-12 items-center rounded-full px-8 font-semibold">
           Keep shopping
         </Link>
       </main>

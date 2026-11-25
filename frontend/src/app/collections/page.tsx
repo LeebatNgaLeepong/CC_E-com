@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { io } from "next/cache";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { getFacets } from "@/lib/catalog";
 
 export const metadata = { title: "Collections" };
@@ -41,6 +42,7 @@ async function CollectionsContent() {
           ))}
         </div>
       </main>
+      <Footer />
     </>
   );
 }
